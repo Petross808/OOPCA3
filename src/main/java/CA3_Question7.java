@@ -14,9 +14,9 @@ public class CA3_Question7
    quit
     */
     public static void main(String[] args) {
-
+        Map<String, Queue<Block>> blocks = new HashMap<>();
         Scanner in = new Scanner(System.in);
-        String command="";
+        String command = "";
         do {
             System.out.print(">");
             command = in.next();
@@ -25,15 +25,39 @@ public class CA3_Question7
                 String company = in.next();
                 int qty = in.nextInt();
                 double price = in.nextDouble();
-                // Code to buy shares here
+                blocks.putIfAbsent(company, new LinkedList<Block>());
+                blocks.get(company).add(new Block(qty, price));
             }
             else if(command.equals("sell"))
             {
                 String company = in.next();
                 int qty = in.nextInt();
                 double price = in.nextDouble();
-                // Code to sell shares and calculate profit here
+                sell(blocks.get(company), qty, price);
             }
         }while(!command.equalsIgnoreCase("quit"));
+    }
+
+    static double sell(Queue<Block> queue, int qty, double price)
+    {
+        double profit = 0;
+        while(qty > 0)
+        {
+            Block current = queue.peek();
+            if(current.qty > qty)
+            {
+                current.qty -= qty;
+                profit += (qty * price) - (qty * current.price);
+                qty = 0;
+            }
+            else
+            {
+                qty -= current.qty;
+                profit += (current.qty * price) - (current.qty * current.price);
+                queue.remove();
+            }
+        }
+        System.out.println("Profit: " + profit);
+        return profit;
     }
 }

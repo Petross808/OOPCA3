@@ -1,5 +1,5 @@
 
-import java.util.Deque;
+import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Scanner;
 /**
@@ -18,7 +18,7 @@ public class CA3_Question6
     quit
      */
     public static void main(String[] args) {
-        LinkedList<Block> blocks = new LinkedList<>();
+        Queue<Block> blocks = new LinkedList<>();
         double profit = 0;
         Scanner in = new Scanner(System.in);
         String command = "";
@@ -41,7 +41,7 @@ public class CA3_Question6
         } while(!command.equalsIgnoreCase("quit"));
         System.out.println("Total Profit: " + profit);
     }
-    static double sell(LinkedList<Block> queue, int qty, double price)
+    static double sell(Queue<Block> queue, int qty, double price)
     {
         double profit = 0;
         while(qty > 0)
@@ -57,7 +57,7 @@ public class CA3_Question6
             {
                 qty -= current.qty;
                 profit += (current.qty * price) - (current.qty * current.price);
-                queue.pop();
+                queue.remove();
             }
         }
         System.out.println("Profit: " + profit);
@@ -65,13 +65,3 @@ public class CA3_Question6
     }
 }
 
-class Block
-{
-    public int qty;
-    public double price;
-
-    public Block(int qty, double price) {
-        this.qty = qty;
-        this.price = price;
-    }
-}
