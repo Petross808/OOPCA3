@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.Stack;
-
 /**
  *  Name: Petr Sulc
  *  Class Group: GD2b
