@@ -1,4 +1,6 @@
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Scanner;
 /**
  *  Name:
@@ -16,25 +18,60 @@ public class CA3_Question6
     quit
      */
     public static void main(String[] args) {
-
-       Scanner in = new Scanner(System.in);
-        String command="";
-            do {
+        LinkedList<Block> blocks = new LinkedList<>();
+        double profit = 0;
+        Scanner in = new Scanner(System.in);
+        String command = "";
+        do
+        {
             System.out.print(">");
             command = in.next();
             if(command.equalsIgnoreCase("buy"))
             {
                 int qty = in.nextInt();
                 double price = in.nextDouble();
-
+                blocks.add(new Block(qty, price));
             }
-            else if(command.equals("sell"))
+            else if(command.equalsIgnoreCase("sell"))
             {
                 int qty = in.nextInt();
                 double price = in.nextDouble();
-
-
+                profit += sell(blocks, qty, price);
             }
-        }while(!command.equalsIgnoreCase("quit"));
+        } while(!command.equalsIgnoreCase("quit"));
+        System.out.println("Total Profit: " + profit);
+    }
+    static double sell(LinkedList<Block> queue, int qty, double price)
+    {
+        double profit = 0;
+        while(qty > 0)
+        {
+            Block current = queue.peek();
+            if(current.qty > qty)
+            {
+                current.qty -= qty;
+                profit += (qty * price) - (qty * current.price);
+                qty = 0;
+            }
+            else
+            {
+                qty -= current.qty;
+                profit += (current.qty * price) - (current.qty * current.price);
+                queue.pop();
+            }
+        }
+        System.out.println("Profit: " + profit);
+        return profit;
+    }
+}
+
+class Block
+{
+    public int qty;
+    public double price;
+
+    public Block(int qty, double price) {
+        this.qty = qty;
+        this.price = price;
     }
 }
