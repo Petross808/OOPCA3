@@ -3,8 +3,8 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Scanner;
 /**
- *  Name:
- *  Class Group:
+ *  Name: Petr Sulc
+ *  Class Group: GD2b
  */
 public class CA3_Question6
 {
@@ -44,7 +44,7 @@ public class CA3_Question6
     static double sell(Queue<Block> queue, int qty, double price)
     {
         double profit = 0;
-        while(qty > 0)
+        while(qty > 0 && !queue.isEmpty())
         {
             Block current = queue.peek();
             if(current.qty > qty)
